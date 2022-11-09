@@ -1,4 +1,4 @@
-import { Flex, Table, Title } from '@mantine/core';
+import { Flex, MediaQuery, Table, Title } from '@mantine/core';
 import Image from 'next/image';
 import { useState } from 'react';
 import PdfReader from '../component/PdfReader';
@@ -12,43 +12,36 @@ const data: TthcDataType[] = [
         id: 1,
         title: 'Kết quả đánh giá, phân loại việc giải quyết TTHC năm 2021',
         createAt: '12-12-2022',
-        author:'Portal Admin',
-        src: 'http://dvctt.camau.gov.vn/cgate-cong-chung-theme/js/main.js?browserId=other&minifierType=js&languageId=vi_VN&b=6102&t=1665886768555',
-    },
-    {
-        id: 1,
-        title: 'Kết quả đánh giá, phân loại việc giải quyết TTHC năm 2021',
-        createAt: '12-12-2022',
-        author:'Portal Admin',
-        src: 'http://dvctt.camau.gov.vn/cgate-cong-chung-theme/js/main.js?browserId=other&minifierType=js&languageId=vi_VN&b=6102&t=1665886768555',
+        author: 'Portal Admin',
+        src: 'sample.pdf',
     },
     {
         id: 2,
         title: 'Kết quả đánh giá, phân loại việc giải quyết TTHC năm 2021',
         createAt: '12-12-2022',
-        author:'Portal Admin',
-        src: 'http://dvctt.camau.gov.vn/cgate-cong-chung-theme/js/main.js?browserId=other&minifierType=js&languageId=vi_VN&b=6102&t=1665886768555',
+        author: 'Portal Admin',
+        src: 'sample2.pdf',
     },
     {
         id: 3,
         title: 'Kết quả đánh giá, phân loại việc giải quyết TTHC năm 2021',
         createAt: '12-12-2022',
-        author:'Portal Admin',
-        src: 'http://dvctt.camau.gov.vn/cgate-cong-chung-theme/js/main.js?browserId=other&minifierType=js&languageId=vi_VN&b=6102&t=1665886768555',
+        author: 'Portal Admin',
+        src: 'sample3.pdf',
     },
     {
         id: 4,
         title: 'Kết quả đánh giá, phân loại việc giải quyết TTHC năm 2021',
         createAt: '12-12-2022',
-        author:'Portal Admin',
-        src: 'http://dvctt.camau.gov.vn/cgate-cong-chung-theme/js/main.js?browserId=other&minifierType=js&languageId=vi_VN&b=6102&t=1665886768555',
+        author: 'Portal Admin',
+        src: 'sample.pdf',
     },
     {
         id: 5,
         title: 'Kết quả đánh giá, phân loại việc giải quyết TTHC năm 2021',
         createAt: '12-12-2022',
-        author:'Portal Admin',
-        src: 'http://dvctt.camau.gov.vn/cgate-cong-chung-theme/js/main.js?browserId=other&minifierType=js&languageId=vi_VN&b=6102&t=1665886768555',
+        author: 'Portal Admin',
+        src: 'sample2.pdf',
     },
 ];
 
@@ -57,12 +50,12 @@ export default function Home() {
     const [selectedTthc, setSelectedTthc] = useState<
         TthcDataType | undefined
     >();
-    const [pdfSource, setPdfSource] = useState({})
+    const [pdfSource, setPdfSource] = useState({});
     const handleViewPDF = (tthc: TthcDataType) => {
         setSelectedTthc(tthc);
-        console.log(selectedTthc?.src);
-        
-    }
+        // console.log(selectedTthc?.src);
+
+    };
 
     return (
         <Flex
@@ -75,9 +68,9 @@ export default function Home() {
         >
             <Title order={3}>KẾT QUẢ PHÂN LOẠI GIẢI QUYẾT TTHC</Title>
 
-            <Flex w='100%' justify='space-around' mt='1rem'>
-                <Tablecomponent data={data} handleViewPDF={handleViewPDF}/>
-                <PdfReader />
+            <Flex w='100%' justify='space-around' mt='1rem' direction={{ base: 'column', sm: 'row' }}>
+                <Tablecomponent data={data} handleViewPDF={handleViewPDF} selectedId={selectedTthc && selectedTthc.id}/>
+                <PdfReader src={`asset/${selectedTthc?.src}`} />
             </Flex>
         </Flex>
     );
